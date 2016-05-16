@@ -21,14 +21,21 @@ int createuser(userinfo * uinfo) {
 			char gid2str[8];
 			itos(uinfo->uid, uid2str, 8);
 			itos(uinfo->gid, gid2str, 8);
-			char cmd[512];
-			memset(cmd, '\0', sizeof(512));
-			sprintf(cmd, 
-				"/usr/sbin/useradd -s %s -p %s -m -d /home/%s -c \"%s\" "
-				"-u %s -g %s %s\n\n", 
-				uinfo->sh, uinfo->pa, uinfo->un, uinfo->fn,
-				uid2str, gid2str, uinfo->un);
-			int retval = system(cmd);
+			char useradd_cmd[512];
+			char passwd_cmd[512];
+			memset(useradd_cmd, '\0', sizeof(512));
+			sprintf(useradd_cmd, 
+				"/usr/sbin/useradd -s %s -m -d /home/%s -c \"%s\" "
+				"-u %s -g 100 -G %s %s\n\n", 
+				uinfo->sh, uinfo->un, uinfo->fn, uid2str, gid2str, uinfo->un);
+			int retval = system(useradd_cmd);
+			if(retval == -1) {
+				return NOT_SUCCESS;
+			}
+			memset(passwd_cmd, '\0', sizeof(512));
+			sprintf(passwd_cmd, "echo -e \"%s\\n%s\" | passwd %s",
+				uinfo->pa, uinfo->pa, uinfo->un);
+			retval = system(passwd_cmd);
 			if(retval == -1) {
 				return NOT_SUCCESS;
 			}
