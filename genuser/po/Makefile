@@ -21,7 +21,7 @@ GETTEXT_PACKAGE = genuser
 PACKAGE = genuser
 VERSION = 1.0
 
-SHELL = /bin/sh
+SHELL = /bin/bash
 
 srcdir = .
 top_srcdir = ..
@@ -32,11 +32,11 @@ prefix = /usr/local
 exec_prefix = ${prefix}
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
-libdir = ${exec_prefix}/lib64
+libdir = ${exec_prefix}/lib
 DATADIRNAME = share
 itlocaledir = $(prefix)/$(DATADIRNAME)/locale
 subdir = po
-install_sh = ${SHELL} /data/dev/cc++/1_ansi_c/genuser/github/genuser/install-sh
+install_sh = ${SHELL} /data/dev/cc++/1_ansi_c/genuser/github/genuser/genuser/install-sh
 # Automake >= 1.8 provides $(MKDIR_P).
 # Until it can be supposed, use the safe fallback:
 mkdir_p = $(install_sh) -d
